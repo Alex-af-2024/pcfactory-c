@@ -1,0 +1,25 @@
+# Entornos virtuales
+venv/
+djangorest/
+env/
+
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de base de datos local
+db.sqlite3
+
+# Archivos de configuración local
+*.env
+
+# Archivos de logs
+*.log
+
+# Archivos estáticos recopilados
+staticfiles/
+media/
+
+# Prueba para ver si gitignore se sube a github. Hoy 14-09 22:39
