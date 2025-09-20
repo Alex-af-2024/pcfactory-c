@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-v3@%$47i)ydp^s
 DEBUG = os.environ.get("DEBUG", "True") == "True" #nuevo
 
 ALLOWED_HOSTS = ["127.0.0.1","localhost",".onrender.com"]  #nuevo, luego agregar render.com
-CSRF_TRUSTED_ORIGINS = ["http://*.onrender.com", "https://*.onrender.com"] #nuevo
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"] #nuevo
 
 
 # Application definition
@@ -90,7 +90,7 @@ DATABASES = {
     }
 }
 
-# Si render.com pasa DATABASE_URL, la usamos
+# Si render.com pasa DATABASE_URL, la usamos como variable de entorno
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
@@ -132,7 +132,7 @@ USE_TZ = True
 
 # MODIFICACIÓN DE SETTINGS PARA RENDER.COM 20-09 19:28
 
-STATIC_URL = 'static/' #Nuevo, debe ser ruta, no dir archivo como abajo
+STATIC_URL = '/static/' #Nuevo, debe ser ruta, no dir archivo como abajo
 #STATIC_URL = BASE_DIR / 'staticfiles'  #nuevo
 STATIC_ROOT = BASE_DIR / 'staticfiles'  #nuevo
 
