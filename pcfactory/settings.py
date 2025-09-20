@@ -32,7 +32,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-v3@%$47i)ydp^s
 # antes:DEBUG = True
 DEBUG = os.environ.get("DEBUG", "True") == "True" #nuevo
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","localhost",".onrender.com"]  #nuevo, luego agregar render.com
+CSRF_TRUSTED_ORIGINS = ["http://*.onrender.com", "https://*.onrender.com"] #nuevo
 
 
 # Application definition
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #nuevo
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,7 +93,7 @@ DATABASES = {
 # Si render.com pasa DATABASE_URL, la usamos
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if DATABASE_URL:
-    DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
 
 
 # Password validation
@@ -128,14 +130,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_URL = BASE_DIR / 'staticfiles'  #nuevo
+# MODIFICACIÓN DE SETTINGS PARA RENDER.COM 20-09 19:28
 
-STORAGE = {
-    'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
-    }
-} #nuevo
+STATIC_URL = 'static/' #Nuevo, debe ser ruta, no dir archivo como abajo
+#STATIC_URL = BASE_DIR / 'staticfiles'  #nuevo
+STATIC_ROOT = BASE_DIR / 'staticfiles'  #nuevo
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" #nuevo ->django 5
+
+# STORAGE = {
+#     'staticfiles': {
+#         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+#     }
+# } #nuevo
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
