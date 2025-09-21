@@ -1,4 +1,4 @@
-#!/usr/bin/env bash  Detiene ejecución si hay un error
+#!/usr/bin/env bash
 set -o errexit
 
 # instalar deps (por si Render no lo hace)
